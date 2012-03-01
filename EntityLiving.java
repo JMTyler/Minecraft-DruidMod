@@ -568,7 +568,7 @@ public abstract class EntityLiving extends Entity
                     f2 = Block.blocksList[j].slipperiness * 0.91F;
                 }
             }
-            if(isOnLadder())
+            if(isOnLadder() || isClimbingLeaves())
             {
                 float f5 = 0.15F;
                 if(motionX < (double)(-f5))
@@ -598,7 +598,7 @@ public abstract class EntityLiving extends Entity
                 }
             }
             moveEntity(motionX, motionY, motionZ);
-            if(isCollidedHorizontally && isOnLadder())
+            if(isCollidedHorizontally && (isOnLadder() || isClimbingLeaves()))
             {
                 motionY = 0.20000000000000001D;
             }
@@ -625,6 +625,38 @@ public abstract class EntityLiving extends Entity
         int j = MathHelper.floor_double(boundingBox.minY);
         int k = MathHelper.floor_double(posZ);
         return worldObj.getBlockId(i, j, k) == Block.ladder.blockID;
+    }
+    
+    public boolean isClimbingLeaves()
+    {
+    	if (!(this instanceof EntityPlayer) || !mod_Classes.checkDependency((EntityPlayer)this, mod_Classes.getArmor("druidPantaloons"))) {
+    		return false;
+    	}
+    	
+    	int i = MathHelper.floor_double(posX) - 1;
+        int j = MathHelper.floor_double(boundingBox.minY);
+        int k = MathHelper.floor_double(posZ);
+        if (worldObj.getBlockId(i, j, k) == Block.leaves.blockID) {
+        	return true;
+        }
+        
+        i = MathHelper.floor_double(posX) + 1;
+        if (worldObj.getBlockId(i, j, k) == Block.leaves.blockID) {
+        	return true;
+        }
+        
+        i = MathHelper.floor_double(posX);
+        k = MathHelper.floor_double(posZ) - 1;
+        if (worldObj.getBlockId(i, j, k) == Block.leaves.blockID) {
+        	return true;
+        }
+        
+        k = MathHelper.floor_double(posZ) + 1;
+        if (worldObj.getBlockId(i, j, k) == Block.leaves.blockID) {
+        	return true;
+        }
+        
+        return false;
     }
 
     public void writeEntityToNBT(NBTTagCompound nbttagcompound)
