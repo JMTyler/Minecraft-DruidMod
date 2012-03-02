@@ -60,6 +60,10 @@ public class ItemBucket extends Item
                 {
                     return itemstack;
                 }
+                if (world.getBlockId(i, j, k) == mod_Druid.blockHealingWaterStill.blockID && world.getBlockMetadata(i, j, k) == 0) {
+                	world.setBlockWithNotify(i, j, k, 0);
+                	return new ItemStack(mod_Druid.itemHealingWater);
+                }
                 if(world.getBlockMaterial(i, j, k) == Material.water && world.getBlockMetadata(i, j, k) == 0)
                 {
                     world.setBlockWithNotify(i, j, k, 0);
