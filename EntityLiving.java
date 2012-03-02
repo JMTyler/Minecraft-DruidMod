@@ -568,7 +568,7 @@ public abstract class EntityLiving extends Entity
                     f2 = Block.blocksList[j].slipperiness * 0.91F;
                 }
             }
-            if(isOnLadder() || isClimbingLeaves())
+            if(isOnLadder() || isClimbingLeavesOrTrunk())
             {
                 float f5 = 0.15F;
                 if(motionX < (double)(-f5))
@@ -598,7 +598,7 @@ public abstract class EntityLiving extends Entity
                 }
             }
             moveEntity(motionX, motionY, motionZ);
-            if(isCollidedHorizontally && (isOnLadder() || isClimbingLeaves()))
+            if(isCollidedHorizontally && (isOnLadder() || isClimbingLeavesOrTrunk()))
             {
                 motionY = 0.20000000000000001D;
             }
@@ -627,32 +627,32 @@ public abstract class EntityLiving extends Entity
         return worldObj.getBlockId(i, j, k) == Block.ladder.blockID;
     }
     
-    public boolean isClimbingLeaves()
+    public boolean isClimbingLeavesOrTrunk()
     {
-    	if (!(this instanceof EntityPlayer) || !mod_Classes.checkDependency((EntityPlayer)this, mod_Classes.getArmor("druidPantaloons"))) {
+    	if (!(this instanceof EntityPlayer) || !mod_Classes.checkDependency((EntityPlayer)this, mod_Classes.getArmor("druidBooties"))) {
     		return false;
     	}
     	
     	int i = MathHelper.floor_double(posX) - 1;
         int j = MathHelper.floor_double(boundingBox.minY);
         int k = MathHelper.floor_double(posZ);
-        if (worldObj.getBlockId(i, j, k) == Block.leaves.blockID) {
+        if (worldObj.getBlockId(i, j, k) == Block.leaves.blockID || worldObj.getBlockId(i, j, k) == Block.wood.blockID) {
         	return true;
         }
         
         i = MathHelper.floor_double(posX) + 1;
-        if (worldObj.getBlockId(i, j, k) == Block.leaves.blockID) {
+        if (worldObj.getBlockId(i, j, k) == Block.leaves.blockID || worldObj.getBlockId(i, j, k) == Block.wood.blockID) {
         	return true;
         }
         
         i = MathHelper.floor_double(posX);
         k = MathHelper.floor_double(posZ) - 1;
-        if (worldObj.getBlockId(i, j, k) == Block.leaves.blockID) {
+        if (worldObj.getBlockId(i, j, k) == Block.leaves.blockID || worldObj.getBlockId(i, j, k) == Block.wood.blockID) {
         	return true;
         }
         
         k = MathHelper.floor_double(posZ) + 1;
-        if (worldObj.getBlockId(i, j, k) == Block.leaves.blockID) {
+        if (worldObj.getBlockId(i, j, k) == Block.leaves.blockID || worldObj.getBlockId(i, j, k) == Block.wood.blockID) {
         	return true;
         }
         
