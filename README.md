@@ -1,4 +1,10 @@
-WARNING: Based on Minecraft 1.8.1.  There MAY be incompatibilities.
+# Obsolete #
+
+I still plan to finish this project, and update it to Forge or something if possible, but don't hold your breath.
+
+---
+
+WARNING: Based on Minecraft BETA 1.8.1.  There ARE DEFINITELY incompatibilities with whatever you're running.
 
 This mod adds the Druid class to the game, based upon the specification laid out with the ClassesMod description.
 
